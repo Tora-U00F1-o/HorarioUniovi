@@ -26,10 +26,10 @@ def getMenuOptions():
             "0_ Salir"]
 
 """Imprime el menu introducido, se añade una cabecera"""
-def showMenu(options = []):
+def showMenu(title, options = []):
     Utils.say("\n-----------------------------\n"
         +"-----------------------------\n"
-        +" Menú\n"
+        +" "+title+"\n"
         +"-----------------------------")
 
     for option in options:
@@ -58,7 +58,7 @@ def main():
         Persistencia.updateDB()
 
     while(True):
-        showMenu(getMenuOptions())
+        showMenu("Menú", getMenuOptions())
 
         option = Utils.askInt("Opcion?")
         if(option == 0):
@@ -101,7 +101,3 @@ def main():
 
 
 main()
-
-# que puedas ver mas dias --> con una matriz como si fuera la tabla de un horario
-    # y un for doble con otro metodo que separe con blancos pa que quede guapo
-#Comentarlo cerdo

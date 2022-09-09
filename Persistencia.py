@@ -1,5 +1,6 @@
 import Constantes
 import Utils
+import Subject
 
 import csv
 from io import StringIO
@@ -14,7 +15,7 @@ def getSubjectByDate(fecha):
     result = []
     for clase in f.readlines()[1:]:
         n = clase.split(",")
-        if(n[FECHA_POS].strip().__eq__(fecha)):
+        if(n[Subject.FECHA_POS].strip().__eq__(fecha)):
             result.append(clase)
 
     f.close()
