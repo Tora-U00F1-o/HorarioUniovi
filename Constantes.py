@@ -6,8 +6,3 @@ URL = 'https://gobierno.ingenieriainformatica.uniovi.es/grado/plan/plan.php?vist
 FILE_NAME = "horario.db"
 todayDate = Utils.getTodayDate()
 
-# tipos de vista URL (parametro de URL "vista")
-# [web , csv , ]
-WEB = 'web'
-CSV = 'csv'
-TABLA = 'tabla'

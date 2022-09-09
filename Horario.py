@@ -2,13 +2,8 @@ import Subject
 import Persistencia
 import Utils
 import Constantes
+import WebUtils
 
-import webbrowser
-
-## Esto es pq hay un warning de que no se comprueba el http
-## (a dia de 18/04/2022 no funciona la web
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 #Interfaz ----------------------------------------------------------------------
@@ -85,14 +80,10 @@ def main():
             continue
 
         elif(option == 5):
-            urlTabla = Utils.processVistaURL(Constantes.TABLA)
-            webbrowser.open(urlTabla)
-            continue
+            WebUtils.open(WebUtils.TABLA)
 
         elif(option == 6):
-            urlWEB = Utils.processVistaURL(Constantes.WEB)
-            webbrowser.open(urlWEB)
-            continue
+            WebUtils.open(WebUtils.WEB)
 
         else:
             msg =">> Opción ["+str(option) +"] no existe"

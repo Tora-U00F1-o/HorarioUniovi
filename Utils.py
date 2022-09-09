@@ -70,10 +70,12 @@ def processDate(dateToProcess):
 ##              parametros
 ## Entonces buscamos el substring de "vista=xxx&" y sustituimos el valor "xxx"
 def processVistaURL(type):
+    return processVistaURL(Constantes.URL, type)
+def processVistaURL(url, type):
     strToSearch = 'vista='
-    indexStart = Constantes.URL.find(strToSearch) + len(strToSearch)
+    indexStart = url.find(strToSearch) + len(strToSearch)
     strToSearch = '&'
-    indexEnd = Constantes.URL.find(strToSearch)
+    indexEnd = url.find(strToSearch)
 
-    newURL = Constantes.URL[:indexStart] + type + Constantes.URL[indexEnd:]
+    newURL = url[:indexStart] + type + url[indexEnd:]
     return newURL
