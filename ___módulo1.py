@@ -1,5 +1,6 @@
 import WebUtils
 import Utils
+import Constantes
 
 
 import csv
@@ -111,6 +112,7 @@ def getMenuOptions():
             "4_ Mostrar web en navegador",
             "5_ Reset archivo",
             "6_ Convinaciones de asignaturas",
+            "7_ Abrir carpeta en Explorer",
             "0_ Salir"]
 
 """Imprime el menu introducido, se añade una cabecera"""
@@ -124,6 +126,20 @@ def showMenu(title, options = []):
         Utils.say("  "+option)
 
     Utils.say("-----------------------------")
+
+# open explorer ----------------------------------------------------------------
+import os
+import subprocess
+
+FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'),'explorer.exe')
+def openInExplorer(path):# explorer would choke on forward slashes
+    path = os.path.normpath(path)
+    if os.path.isdir(path):
+        subprocess.run([FILEBROWSER_PATH, path])
+    elif os.path.isfile(path):
+        subprocess.run([FILEBROWSER_PATH,'/select,', os.path.normpath(path)])
+
+# / open explorer ----------------------------------------------------------------
 
 def main():
 
@@ -166,6 +182,9 @@ def main():
         elif(option == 6):
             urlTemp = mostrarAsigJuntas()
             resetDatos(urlTemp)
+
+        elif(option == 7):
+            openInExplorer(Constantes.FILE_NAME)
 
         else:
             msg =">> Opción ["+str(option) +"] no existe"
