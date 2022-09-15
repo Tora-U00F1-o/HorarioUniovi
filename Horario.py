@@ -3,13 +3,13 @@ import Persistencia
 import Utils
 import Constantes
 import WebUtils
-
+import InterfazUtils
 
 
 #Interfaz ----------------------------------------------------------------------
 
 def showHorario(fecha, horario = []):
-    showMenu("Horario "+fecha, horario)
+    InterfazUtils.showMenu("Horario "+fecha, horario)
 
 def getMenuOptions():
     return ["1_ Horario de Hoy",
@@ -20,17 +20,6 @@ def getMenuOptions():
             "6_ Mostrar web en navegador",
             "0_ Salir"]
 
-"""Imprime el menu introducido, se añade una cabecera"""
-def showMenu(title, options = []):
-    Utils.say("\n-----------------------------\n"
-        +"-----------------------------\n"
-        +" "+title+"\n"
-        +"-----------------------------")
-
-    for option in options:
-        Utils.say("  "+option)
-
-    Utils.say("-----------------------------")
 
 # Main -------------------------------------------------------------------------
 def program(fecha):
@@ -53,7 +42,7 @@ def main():
         Persistencia.updateDB()
 
     while(True):
-        showMenu("Menú", getMenuOptions())
+        InterfazUtils.showMenu("Menú", getMenuOptions())
 
         option = Utils.askInt("Opcion?")
         if(option == 0):

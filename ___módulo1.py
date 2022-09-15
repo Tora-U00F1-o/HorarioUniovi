@@ -1,7 +1,8 @@
 import WebUtils
 import Utils
 import Constantes
-
+import ExplorerUtils
+import InterfazUtils
 
 import csv
 from io import StringIO
@@ -9,7 +10,7 @@ import requests
 
 
 
-arch = "___p.txt"
+arch = Constantes.DATA_DIRECTORY+"___p.txt"
 
 URL = "https://gobierno.ingenieriainformatica.uniovi.es/grado/plan/plan.php?vista=tabla&y=22-23&t=s1&AL_T_2=AL.T.2&AL_S_3=AL.S.3&AL_L_8=AL.L.8&Cal_T_2=Cal.T.2&Cal_S_3=Cal.S.3&Cal_L_8=Cal.L.8&DS_T_3=DS.T.3&DS_S_3=DS.S.3&DS_L_5=DS.L.5&DS_TG_5=DS.TG.5&IPS_T_1=IPS.T.1&IPS_S_3=IPS.S.3&IPS_L_6=IPS.L.6&IPS_TG_6=IPS.TG.6&RI_T_2=RI.T.2&RI_S_3=RI.S.3&RI_L_8=RI.L.8&RI_TG_8=RI.TG.8"
 asignaturas = ["AL","Cal","DS","IPS","RI"]
@@ -115,31 +116,6 @@ def getMenuOptions():
             "7_ Abrir carpeta en Explorer",
             "0_ Salir"]
 
-"""Imprime el menu introducido, se añade una cabecera"""
-def showMenu(title, options = []):
-    Utils.say("\n-----------------------------\n"
-        +"-----------------------------\n"
-        +" "+title+"\n"
-        +"-----------------------------")
-
-    for option in options:
-        Utils.say("  "+option)
-
-    Utils.say("-----------------------------")
-
-# open explorer ----------------------------------------------------------------
-import os
-import subprocess
-
-FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'),'explorer.exe')
-def openInExplorer(path):# explorer would choke on forward slashes
-    path = os.path.normpath(path)
-    if os.path.isdir(path):
-        subprocess.run([FILEBROWSER_PATH, path])
-    elif os.path.isfile(path):
-        subprocess.run([FILEBROWSER_PATH,'/select,', os.path.normpath(path)])
-
-# / open explorer ----------------------------------------------------------------
 
 def main():
 
@@ -153,14 +129,14 @@ def main():
 
 
     while(True):
-        showMenu("Menú", getMenuOptions())
+        InterfazUtils.showMenu("Menú", getMenuOptions())
 
         option = Utils.askInt("Opcion?")
         if(option == 0):
             exit(0)
 
         elif(option == 1):
-            nAsig = Utils.askInt("numero asignatura [0:] "+str(asignaturas))
+            nAsig = Utils.askInt("numero asignatura [0:] \n"+str(asignaturas)+"\n [  0,     1,     2,     3,     4]")
             urlTemp = buscarGruposAsignaturas(nAsig)
             option = Utils.askInt("cargar? [*respuesta es num]")
             if(option):
@@ -184,7 +160,10 @@ def main():
             resetDatos(urlTemp)
 
         elif(option == 7):
-            openInExplorer(Constantes.FILE_NAME)
+            ExplorerUtils.openInExplorer(Constantes.FILE_NAME)
+
+        elif(option == 8):
+            ExplorerUtils.getFilesFromDirectory(arch)
 
         else:
             msg =">> Opción ["+str(option) +"] no existe"
