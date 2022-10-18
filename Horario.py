@@ -69,10 +69,10 @@ def main():
             continue
 
         elif(option == 5):
-            WebUtils.open(WebUtils.TABLA)
+            WebUtils.open(Constantes.URL, WebUtils.TABLA)
 
         elif(option == 6):
-            WebUtils.open(WebUtils.WEB)
+            WebUtils.open(Constantes.URL, WebUtils.WEB)
 
         else:
             msg =">> Opción ["+str(option) +"] no existe"

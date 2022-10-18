@@ -1,6 +1,7 @@
 import Constantes
 import Utils
 import Subject
+import WebUtils
 
 import csv
 from io import StringIO
@@ -47,7 +48,7 @@ def hasToUpdateDB():
 
 def updateDB():
     Utils.say("Updating dataBase...")
-    urlCSV = Utils.processVistaURL(Constantes.CSV)
+    urlCSV = Utils.processVistaURL(Constantes.URL ,WebUtils.CSV)
     req = requests.get(urlCSV, verify=False)
     data = req.text
 

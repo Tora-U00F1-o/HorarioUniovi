@@ -69,13 +69,14 @@ def processDate(dateToProcess):
 ##      \--> " ... php?vista=csv&y=21 ..." está separada por "&" del resto de
 ##              parametros
 ## Entonces buscamos el substring de "vista=xxx&" y sustituimos el valor "xxx"
-def processVistaURL(type):
-    return processVistaURL(Constantes.URL, type)
-def processVistaURL(url, type):
+def processVistaURL(tipo):
+    return processVistaURL(Constantes.URL, tipo)
+
+def processVistaURL(url, tipo):
     strToSearch = 'vista='
     indexStart = url.find(strToSearch) + len(strToSearch)
     strToSearch = '&'
     indexEnd = url.find(strToSearch)
 
-    newURL = url[:indexStart] + type + url[indexEnd:]
+    newURL = url[:indexStart] + tipo + url[indexEnd:]
     return newURL
