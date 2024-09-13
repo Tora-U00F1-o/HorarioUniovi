@@ -79,4 +79,5 @@ def processVistaURL(url, tipo):
     indexEnd = url.find(strToSearch)
 
     newURL = url[:indexStart] + tipo + url[indexEnd:]
+
     return newURL

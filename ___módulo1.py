@@ -12,10 +12,10 @@ import requests
 
 arch = Constantes.DATA_DIRECTORY+"___p.txt"
 
-URL = "https://gobierno.ingenieriainformatica.uniovi.es/grado/plan/plan.php?y=22-23&t=s1&AL.T.2=AL.T.2&AL.S.3=AL.S.3&AL.L.8=AL.L.8&Cal.T.1=Cal.T.1&Cal.S.3=Cal.S.3&Cal.L.8=Cal.L.8&DS.T.3=DS.T.3&DS.S.3=DS.S.3&DS.L.3=DS.L.3&DS.TG.3=DS.TG.3&IPS.T.1=IPS.T.1&IPS.S.4=IPS.S.4&IPS.L.5=IPS.L.5&IPS.TG.5=IPS.TG.5&RI.T.2=RI.T.2&RI.S.3=RI.S.3&RI.L.8=RI.L.8&RI.TG.8=RI.TG.8&vista=tabla"
-asignaturas = ["AL","Cal","DS","IPS","RI","SR"]
+URL = 'https://gobierno.ingenieriainformatica.uniovi.es/grado/plan/plan.php?y=24-25&t=s1&AC.T.2=AC.T.2&AC.S.1=AC.S.1&AC.L.5=AC.L.5&AC.TG.5=AC.TG.5&RI.T.2=RI.T.2&RI.S.1=RI.S.1&RI.L.7=RI.L.7&RI.TG.7=RI.TG.7&CVVS.T.1=CVVS.T.1&CVVS.S.3=CVVS.S.3&CVVS.L.9=CVVS.L.9&CVVS.TG.9=CVVS.TG.9&SI.T.1=SI.T.1&SI.S.-=SI.S.-&SI.L.9=SI.L.9&SI.TG.9=SI.TG.9&SR.T.1=SR.T.1&SR.S.1=SR.S.1&SR.L.2=SR.L.2&SR.TG.2=SR.TG.2&vista=tabla'
+asignaturas = ["RI","AC","CVVS","SI","SR"]
 tiposClases         = ["T","TG","S","L"]
-nMaxDiferentesTipos = [4  ,20  ,4  ,20]
+nMaxDiferentesTipos = [4  ,20  ,6  ,20]
 
 def resetDatos(url):
     p = url.split('&')
@@ -30,7 +30,7 @@ def cargar():
     f=open(arch,'r')
     array = f.readlines()
     for i in range(len(array)):
-        urlNueva += array[i][:-1]
+        urlNueva += array[i].strip()
         if(i<len(array)-1):
             urlNueva += '&'
     f.close()
@@ -40,7 +40,6 @@ def buscarNombreAsignaturasEnWeb(url):
     urlCSV = Utils.processVistaURL(url, WebUtils.CSV)
     req = requests.get(urlCSV, verify=False)
     data = req.text
-
     s = []
     for l in str(data).split("\n"):
         asig =l.split(",")[0]
@@ -63,7 +62,7 @@ def generarConvinacionesPosiblesGruposAsignatura(nAsig):
     return array
 
 def generarURL(arrayPosiblesAsignaturas):
-    urlNueva = "https://gobierno.ingenieriainformatica.uniovi.es/grado/plan/plan.php?vista=tabla&y=22-23&t=s1&"
+    urlNueva = "https://gobierno.ingenieriainformatica.uniovi.es/grado/plan/plan.php?vista=csv&y=24-25&t=s1&"
 
     for i in range(len(arrayPosiblesAsignaturas)):
         urlNueva += arrayPosiblesAsignaturas[i]
@@ -82,7 +81,6 @@ def buscarGruposAsignaturas(nAsig, junto=0):
 
     else:
         conv = generarConvinacionesPosiblesGruposAsignatura(nAsig)
-
 
     urlNueva = generarURL(conv)
 

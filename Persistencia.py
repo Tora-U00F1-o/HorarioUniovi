@@ -41,7 +41,7 @@ def hasToUpdateDB():
         f=open(Constantes.FILE_NAME, 'r')
         lastUpdate = f.readline().strip()
         f.close()
-    except FileNotFoundError:
+    except (FileNotFoundError , UnicodeDecodeError):
         return(True)
 
     return(lastUpdate!=Constantes.todayDate)
